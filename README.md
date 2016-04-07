@@ -5,9 +5,24 @@ NETS213 Final Project: Ella Polo, Samay Dhawan, Jason Woo, Victor Yoon, Kevin Zh
 
 This app will let users locate locations of food trucks, with geographic information gathered from crowdworkers. <br />
 Milestones: <br />
--Gathering the right information and scouring the web for food truck information, starting in Philly (4 points) <br />
+-Gathering pictures of food trucks and their menus; Having crowd workers transcribe menu items (4 points) <br />
 -Posting user-friendly hits on Crowdflower in order to extract information (3 points)  <br />
 -QC of crowd information (1 point)  <br />
 -Data aggregation into SQL (MongoDB?) database (3 points) <br />
 -Build webapp using Javascript with interactive map (4 points) <br />
+
+Data: <br />
+  -Raw Data:First, we will take images of food trucks and their menus. This can be done by ourselves or through Field Agent<br />
+            The images are then hosted on Dropbox. From this, we generate a CSV file of Image URLs we can use for CrowdFlower<br />
+  -Quality Control Data:      <br />
+  -Aggregation Data:         <br />
+  
+  
+Modules
+  
+
+  
+  
+
+
 
