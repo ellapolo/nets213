@@ -4,14 +4,11 @@ import json
 import csv
 
 
-def make_json(filename): 
-	data = [line.strip().split('\t') for line in open(filename).readlines()]
-	return data
-
-def make_labels(filename) : 
-	for row in csv.DictReader(open(filename)) : 
-		print row['url'], '\t', row['does_the_article_describe_gun_violence_required']
+def make_dict(filename): 
+	truck_dict = [line.strip().split('\t') for line in open(filename).readlines()]
+	return truck_dict
 
 if __name__ == '__main__' : 
-
-	raw_data = get_data(sys.argv[1])
+	data = make_dict(sys.argv[1])
+	with open('data.json', 'w') as f:
+		json.dump(data, f)
