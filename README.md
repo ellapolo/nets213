@@ -12,10 +12,10 @@ Milestones: <br />
 -Build webapp using Javascript with interactive map (4 points) <br />
 
 Data: <br />
-  -Raw Data:First, we will take images of food trucks and their menus. This can be done by ourselves or through Field Agent<br />
-            The images are then hosted on Dropbox. From this, we generate a CSV file of Image URLs we can use for CrowdFlower<br />
-  -Quality Control Data:      <br />
-  -Aggregation Data:         <br />
+  -Raw Data:First, we will take images of food trucks and their menus. This can be done by ourselves or through Field Agent.<br />
+The images are then hosted on Dropbox. From this, we generate a CSV file of Image URLs we can use for CrowdFlower.<br />
+  -Quality Control Data: From CrowdFlower      <br />
+  -Aggregation Data: The output from Quality Control will be the input for our Aggregation. Our Aggregation Module will take the CSV file and generate a json file which contains     <br />
   
   
 Modules
