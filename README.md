@@ -23,11 +23,11 @@ The images are then hosted on Dropbox. From this, we generate a CSV file of Imag
 Sample Data for all the above is in our Data folder.<br />
   
 Modules: <br />
-All the below componets are located in our SRC folder. <br />
+All the below components are located in our SRC folder. <br />
 
-  -Quality Control Module: We will implement 2 measures for QC. First, we designed a 2nd pass HIT (see the PNGs) and will rely on crowd workers to monitor previous results. Additionally, we have a script to filter results based on majority vote (see quality_control.py). From these 2 methods, we generate a CSV file to be passed on to our aggregation module. <br />
+  -Quality Control Module: We will implement 2 measures for QC. First, we designed a 2nd pass HIT (see the PNGs) and will rely on crowd workers to monitor previous results. Additionally, we have a script to filter results based on majority vote (see quality_control.py). From these 2 methods, we generate a CSV file to be passed on to our Aggregation Module. <br />
   
-  -Aggregation Module:     (see aggregation.py)<br />
+  -Aggregation Module: From the QC output, we will be running a python script (see aggregation.py) to comb through the CSV file and compile the menu items for each food truck into a json file. This will facilitate embedding the data into our web app.<br />
   
 
   
