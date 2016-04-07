@@ -11,16 +11,15 @@ def quality_control(filename):
     food_truck_data.read()
     for line in food_truck_data:
         columns = line.split(',')
-        if len(columns) < 2:
+        if len(columns) < 3:
             print "bad row, no HIT_ID, img_url, or truck_name"
             continue
-        if len(columns) == 2:
+        if len(columns) == 3:
             print "no menu data"
             continue
-        truck_data = columns[:2]
-        print truck_data
+        truck_data = columns[:3]
+        sys.stdout.write(truck_data)
         id, img, truck_name = tuple(truck_data)
-        print id, truck_name
         truck_menu = {}
         try:
             truck_names[id].append(truck_name)
@@ -28,7 +27,7 @@ def quality_control(filename):
         except KeyError:
             truck_names[id] = [truck_name]
             truck_menu = {}
-        menu = columns[2:]
+        menu = columns[3:]
         menu = [x for x in menu if x]
         for item, price in pairwise(menu):
             num_price = 0.0
@@ -43,8 +42,8 @@ def quality_control(filename):
                 truck_menu[item] = [num_price]
         truck_menus[id] = truck_menu
     
-    print truck_menus
-    print truck_names
+    sys.stdout.write(truck_menus)
+    sys.stdout.write(truck_names)
 
 def pairwise(l):
     a = iter(l)

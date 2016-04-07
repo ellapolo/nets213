@@ -8,19 +8,16 @@ def quality_control(filename):
     # columns: HIT_ID, img_url, truck_name, item1, price1, item2, price2, item3, price3.....
     truck_menus = {}
     truck_names = {}
-    food_truck_data.read()
     for line in food_truck_data:
         columns = line.split(',')
-        if len(columns) < 2:
+        if len(columns) < 3:
             print "bad row, no HIT_ID, img_url, or truck_name"
             continue
-        if len(columns) == 2:
+        if len(columns) == 3:
             print "no menu data"
             continue
-        truck_data = columns[:2]
-        print truck_data
+        truck_data = columns[:3]
         id, img, truck_name = tuple(truck_data)
-        print id, truck_name
         truck_menu = {}
         try:
             truck_names[id].append(truck_name)
@@ -28,8 +25,7 @@ def quality_control(filename):
         except KeyError:
             truck_names[id] = [truck_name]
             truck_menu = {}
-        menu = columns[2:]
-        menu = [x for x in menu if x]
+        menu = columns[3:]
         for item, price in pairwise(menu):
             num_price = 0.0
             try:
@@ -46,8 +42,7 @@ def quality_control(filename):
     print truck_menus
     print truck_names
 
-def pairwise(l):
-    a = iter(l)
-    return izip(a, a)
+    def pairwise(l):
+        a = iter(l)
+        return izip(a, a)
             
-quality_control("../data/qc_input_sample.csv")
