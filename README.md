@@ -1,4 +1,5 @@
-q # Where the Trucks At? <br />
+ #Where the Trucks At? 
+<br />
 ![alt text](trucks.png "Example Interface")<br />
 Crowdsourced WebApp for Locating Food Trucks<br />
 NETS213 Final Project: Ella Polo, Samay Dhawan, Jason Woo, Victor Yoon, Kevin Zhai<br />
