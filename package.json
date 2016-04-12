@@ -1,0 +1,17 @@
+{
+  "name": "NETS213FinalProject",
+  "author": "Kevin Zhai",
+  "version": "1.0.0",
+  "description": "Food Truck Finder",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "2.3.3",
+    "express": "4.13.3"
+  },
+  "license": "MIT",
+  "devDependencies": {
+  }
+}
