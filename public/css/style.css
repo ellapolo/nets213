@@ -4,6 +4,11 @@ h1 {
   border-bottom: 3px solid #000000;
 }
 
+#map {
+        width: 500px;
+        height: 400px;
+}
+
 .center {
 	text-align: center;
 }
