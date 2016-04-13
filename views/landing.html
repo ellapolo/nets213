@@ -9,13 +9,23 @@
 </head>
 
 <body class="center" bgcolor="white">
-	<div id="map"></div>
+	<div class="center" id="map" style="width:700px;height:500px;"></div>
 	<script>
 	function initMap() {
 		var mapDiv = document.getElementById('map');
+
+		var myLatLng = {lat: 39.9502, lng: -75.1913};
+
 		var map = new google.maps.Map(mapDiv, {
-			center: {lat: 44.540, lng: -78.546},
-			zoom: 8
+			center: myLatLng,
+			zoom: 17
+		});
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Tyson Bees',
+			icon: 'icon.png'
 		});
 	}
 	</script>
