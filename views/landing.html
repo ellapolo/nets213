@@ -13,9 +13,19 @@
 	<script>
 	function initMap() {
 		var mapDiv = document.getElementById('map');
+
+		var myLatLng = {lat: 39.9502, lng: -75.1913};
+
 		var map = new google.maps.Map(mapDiv, {
-			center: {lat: 39.953, lng: -75.195},
-			zoom: 16
+			center: myLatLng,
+			zoom: 17
+		});
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Tyson Bees',
+			icon: 'icon.png'
 		});
 	}
 	</script>
