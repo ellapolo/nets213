@@ -9,29 +9,65 @@
 </head>
 
 <body class="center" bgcolor="white">
-	<div class="center" id="map" style="width:700px;height:500px;"></div>
+	<div class="center" id="map" style="width:900px;height:700px;"></div>
 	<script>
 	function initMap() {
 		var mapDiv = document.getElementById('map');
 
-		var myLatLng = {lat: 39.9502, lng: -75.1913};
-
 		var map = new google.maps.Map(mapDiv, {
-			center: myLatLng,
+			center: {lat: 39.9502, lng: -75.1913},
 			zoom: 17
 		});
 
-		var marker = new google.maps.Marker({
-			position: myLatLng,
-			map: map,
-			title: 'Tyson Bees',
-			icon: 'icon.png'
-		});
+
+		setMarkers(map);
+	}
+
+	var trucks = [
+	['Tyson Bees', 39.9502, -75.1913],
+	['Kings Wok', 39.9503, -75.1914]
+	];
+
+	var contentString = '<div id="content">'+
+	'<div id="siteNotice">'+
+	'</div>'+
+	'<h1 id="firstHeading" class="firstHeading">Tyson Bees</h1>'+
+	'<div id="bodyContent">'+
+	'<p>Korean BBQ SHort Rib Tacos - $3</p>'+
+	'</div>'+
+	'</div>';
+
+
+	function setMarkers(map) {
+		var image = {
+			url: 'https://dl.dropboxusercontent.com/u/76571929/truckLogo.png'
+		};
+
+
+		var listeners = [];
+
+		for (var i = 0; i < trucks.length; i++) {
+			(function(index){
+				var truck = trucks[index];
+				var marker = new google.maps.Marker({
+					position: {lat: truck[1], lng: truck[2]},
+					map: map,
+					icon: image,
+					title: truck[0]
+				});
+				var infowindow = new google.maps.InfoWindow({
+					content: truck[0] + contentString
+				});
+				marker.addListener('click', function() {
+					infowindow.open(map, marker);
+				});
+			})(i);
+		}
 	}
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 	<script src="js/collection/entryCollection.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/router/router.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/router/router.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 <footer class="center" class="footer">
