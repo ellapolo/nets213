@@ -8,12 +8,13 @@ and digitize their menus (by translating them). The HIT will provide a mechanism
 
 # HIT Step by Step Instructions
 
-The HIT is titled ”         “, simply click on the url provided and you can begin to help us create a better food truck culture.
+The HIT is titled ”Transcribe Menu Info From Philadelphia Food Trucks“, simply click on the url provided (http://tinyurl.com/nets213foodtruck) or enter it into your browser and you can begin to help us create a better food truck culture. and you can begin to help us create a better food truck culture.
 
-The instructions for what we are looking for is provided in the HIT but here are some tips to make sure you have a smooth experience
+The instructions for what we are looking for are provided in the HIT but here are some tips to make sure you have a smooth experience
 
-Most of the time, menus simply list the items and price. However, some trucks have different and more tricky layouts for their menus.For example, a truck might have a section labeled burritos and a list of all possible fillings. For such cases, please transcribe each item individually such as: chicken burrito, carnitas burrito, etc.
-	****show example menu with such features
+Most of the time, menus simply list the items and price. 
+However, some trucks have different and more tricky layouts for their menus.For example, a truck might have a section labeled burritos and a list of all possible fillings. For such cases, please transcribe each item individually such as: chicken burrito, carnitas burrito, etc.
+
 If you see an item in a foreign language, just ignore it and move on.
 Sometimes the menu has descriptions for the items, you can ignore these and just enter the name
 
