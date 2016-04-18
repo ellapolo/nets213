@@ -8,6 +8,15 @@ and digitize their menus (by translating them). The HIT will provide a mechanism
 
 # HIT Step by Step Instructions
 
+The HIT is titled ”         “, simply click on the url provided and you can begin to help us create a better food truck culture.
+
+The instructions for what we are looking for is provided in the HIT but here are some tips to make sure you have a smooth experience
+
+Most of the time, menus simply list the items and price. However, some trucks have different and more tricky layouts for their menus.For example, a truck might have a section labeled burritos and a list of all possible fillings. For such cases, please transcribe each item individually such as: chicken burrito, carnitas burrito, etc.
+	****show example menu with such features
+If you see an item in a foreign language, just ignore it and move on.
+Sometimes the menu has descriptions for the items, you can ignore these and just enter the name
+
 
 
 # How to (eventually) use our application:
