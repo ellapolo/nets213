@@ -9,6 +9,7 @@
 </head>
 
 <body class="center" bgcolor="white">
+	<p>Help Us add more food trucks by inputting menu information here: <b><a href="http://tinyurl.com/nets213foodtruck">http://tinyurl.com/nets213foodtruck</a></b></p>
 	<div class="center" id="map" style="width:900px;height:700px;"></div>
 	<script>
 	function initMap() {
@@ -24,18 +25,27 @@
 	}
 
 	var trucks = [
-	['Tyson Bees', 39.9502, -75.1913],
-	['Kings Wok', 39.9503, -75.1914]
+	['Tyson Bees', 39.9502, -75.1913,
+	'<p>Korean BBQ SHort Rib Tacos - $3</p>'+
+	'<p>Thai Basil Chicken Tacos - $3</p>'+
+	'<p>Edamame Tacos - $3</p>'+
+	'<p>Korean Beef Short Rib and Kimchi Burrito - $5</p>'+
+	'<p>Grilled BBQ Lemongrass Pork Bahn Mi Sandwhich- $5</p>'+
+	'<p>Steamed Pork Buns - $3</p>'+
+	'<p>Curry of the Week over Rice - $6</p>'+
+	'<p>Thai Basil Chicken over Rice- $6</p>'+
+	'</div>'+
+	'</div>'],
+	['Kings Wok', 39.9503, -75.1914, 
+	'<p>Choose the items below with meats (chicken, pork, beef, shrimp, tofu)</p>'+
+	'<p>Lo Mein - $4.50</p>'+
+	'<p>Fried Rice - $4.50</p>'+
+	'<p>Chow Fun - $4.50</p>'+
+	'<p>Egg Foo Young - $4.50</p>'+
+	'</div>'+
+	'</div>']
 	];
 
-	var contentString = '<div id="content">'+
-	'<div id="siteNotice">'+
-	'</div>'+
-	'<h1 id="firstHeading" class="firstHeading">Tyson Bees</h1>'+
-	'<div id="bodyContent">'+
-	'<p>Korean BBQ SHort Rib Tacos - $3</p>'+
-	'</div>'+
-	'</div>';
 
 
 	function setMarkers(map) {
@@ -56,7 +66,11 @@
 					title: truck[0]
 				});
 				var infowindow = new google.maps.InfoWindow({
-					content: truck[0] + contentString
+					content: '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">' + truck[0] + '</h1>' +
+					'<div id="bodyContent">'+ truck[3]
 				});
 				marker.addListener('click', function() {
 					infowindow.open(map, marker);
