@@ -4,6 +4,8 @@
 Crowdsourced WebApp for Locating Food Trucks<br />
 NETS213 Final Project: Ella Polo, Samay Dhawan, Jason Woo, Victor Yoon, Kevin Zhai<br />
 
+<b>https://wherethefoodtrucksat.herokuapp.com/</b>
+
 This app will let users locate locations of food trucks, with geographic information gathered from crowdworkers. <br />
 Milestones: <br />
 -Gathering pictures of food trucks and their menus; Having crowd workers transcribe menu items (4 points) <br />
