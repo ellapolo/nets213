@@ -81,8 +81,8 @@ def qc(in_filename, out_filename):
     price_agreements = defaultdict(int)
     item_agreements = defaultdict(int)
     item_counts = defaultdict(int)
-    truck_menus_file = open(out_filename + "_menus.json", "w")
-    agreement_file = open(out_filename + "_agreements.csv", "w")
+    truck_menus_file = open("../data/" + out_filename + "_menus.json", "w")
+    agreement_file = open("../data/" + out_filename + "_agreements.csv", "w")
     # Majority vote on truck items and prices
     for url in truck_items:
         try: 
