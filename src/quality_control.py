@@ -1,5 +1,6 @@
 from __future__ import division
 import sys
+import collections
 from collections import defaultdict
 from itertools import izip
 import json 
@@ -80,7 +81,7 @@ def qc(in_filename, out_filename):
     price_agreements = defaultdict(int)
     item_agreements = defaultdict(int)
     item_counts = defaultdict(int)
-    truck_menus_file = open(out_filename + "_menus.csv", "w")
+    truck_menus_file = open(out_filename + "_menus.json", "w")
     agreement_file = open(out_filename + "_agreements.csv", "w")
     # Majority vote on truck items and prices
     for url in truck_items:
@@ -100,7 +101,7 @@ def qc(in_filename, out_filename):
         for item_id in items:
             final_price = -1.0
             item_names = items[item_id]
-            if not item_names:
+            if not item_names or len(item_names) < 2:
                 continue
             item_agreement, final_name = max([(item_names.count(name), name) for name in item_names])
             item_agreement -= 1
@@ -118,9 +119,11 @@ def qc(in_filename, out_filename):
             
         final_truck_menus[id] = final_menu
     # print item_agreements, "\n\n\n", item_counts
-    
+    trucks = []
     for truck_id in final_truck_menus:
-        truck_menus_file.write(str(truck_id) + "," + str(TRUCK_INFO[truck_id][1]) + "," + str(TRUCK_INFO[truck_id][2]) + "," +  truck_id_to_name(truck_id) + "," + json.dumps(final_truck_menus[truck_id]) + "\n")
+        truck_info = collections.OrderedDict([("id", truck_id), ("lat", TRUCK_INFO[truck_id][1]), ("long", TRUCK_INFO[truck_id][2]),  ("name", truck_id_to_name(truck_id)), ("menu", json.dumps(final_truck_menus[truck_id]))])
+        trucks.append(truck_info)
+    truck_menus_file.write(json.dumps(trucks))
     truck_menus_file.close()
 
     for url in item_agreements:
