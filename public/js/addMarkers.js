@@ -51,6 +51,10 @@ function setMarkers(map) {
 				'<div id="siteNotice">'+
 				'</div>'+
 				'<h1 id="firstHeading" class="firstHeading">' + truck[0] + '</h1>' +
+				'<input type="text" name="xentry" id="xentry" class="search form-control" value="" autocomplete="off" placeholder="Item - $(price)"/>' + 
+				'<button id="add_entry" type="button">Add to Database</button>' +
+				'<div id="result"></div>' +
+				'<script> document.getElementById("add_entry").onclick = function() {alert("dude");}; </script>' +
 				'<div id="bodyContent">'+ truck[3]
 			});
 			marker.addListener('click', function() {

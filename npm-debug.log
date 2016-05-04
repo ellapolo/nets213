@@ -19,7 +19,7 @@
 10 error You can get their info via:
 10 error     npm owner ls NETS213FinalProject
 10 error There is likely additional logging output above.
-11 error System Darwin 15.3.0
+11 error System Darwin 15.4.0
 12 error command "/Users/kevinzhai/.nvm/v0.10.40/bin/node" "/Users/kevinzhai/.nvm/v0.10.40/bin/npm" "start"
 13 error cwd /Users/kevinzhai/Desktop/NETS213/nets213
 14 error node -v v0.10.40

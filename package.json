@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "ejs": "2.3.3",
+    "mongoose": "^4.1.11",
+    "node-uuid": "^1.4.3",
     "express": "4.13.3"
   },
   "license": "MIT",
