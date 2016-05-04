@@ -3,9 +3,9 @@ var uuid = require('node-uuid');
 
 
 module.exports = {
-  createTruck: function (tid, tname, tlatitude, tlongitude, tmenu, tcallback) {
-    var truck = new mongo.Truck({id: tid, latitude: tlatitude, longitude: tlongitude, menu:tmenu});
-    key.save(function (error) {
+  createTruck: function (tid, tname, tlatitude, tlongitude, tmenu, callback) {
+    var truck = new mongo.Truck({_id: tid, latitude: tlatitude, longitude: tlongitude, menu:tmenu});
+    truck.save(function (error) {
       callback(error, tid);
     });
   },

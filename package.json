@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "ejs": "2.3.3",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "mongoose": "^4.1.11"
   },
   "license": "MIT",
   "devDependencies": {

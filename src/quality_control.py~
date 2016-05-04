@@ -1,14 +1,35 @@
 from __future__ import division
 import sys
+import collections
 from collections import defaultdict
 from itertools import izip
+import json 
 
-def combine_truck_info(filename):
+def get_truck_info():
+    truck_info = {}
+    truck_info_file = open("../data/truck_info.csv",  "r")
+    for line in truck_info_file:
+        id, name, lat, long = line.split(",")
+        truck_info[int(id)] = (name, lat, long)
+    return truck_info
 
-    food_truck_data = open(filename, 'r')
+TRUCK_INFO = get_truck_info()
+
+def url_to_truck_id(url):
+    return int(url.split("/")[-1].split("foodtruck")[0])
+
+def truck_id_to_name(truck_id):
+    return TRUCK_INFO[truck_id][0]
+
+def qc(in_filename, out_filename):
+
+    food_truck_data = open(in_filename, 'r')
     # columns: HIT_ID, img_url, truck_name, item1, price1, item2, price2, item3, price3.....
-    truck_menus = {}
-    truck_names = {}
+    truck_items = {}
+    truck_prices = {}
+#    fill this in later with manual mapping of truck numbers to names
+#    truck_names = {}
+    item_agreement = defaultdict(int)
     for line in food_truck_data:
         columns = line.split(',')
         if len(columns) < 2:
@@ -17,100 +38,106 @@ def combine_truck_info(filename):
         if len(columns) == 2:
             print "no menu data"
             continue
-        truck_data = columns[:2]
-        id, truck_name = tuple(truck_data)
-        truck_menu = {}
+        id, url = tuple(columns[:2])
         try:
-            truck_name_counts = truck_names[id]
-            truck_menu = truck_menus[id]
+            items = truck_items[url]
         except KeyError:
-            truck_name_counts = defaultdict(int)
-            truck_menu = {}
-        if truck_name.lower() not in [x.lower() for x in truck_name_counts.keys()]:
-            truck_name_counts[truck_name] = 1
-        else:
-            for key in truck_name_counts:
-                if key.lower() == truck_name.lower():
-                    truck_name_counts[key] += 1
-        truck_names[id] = truck_name_counts
+            items = {}
+        try:
+            prices = truck_prices[url]
+        except KeyError:
+            prices = {}
+
         menu = columns[2:]
         # Loops through all the menu inputs of the crowdworker, and stores the information as a dict of item: [price list] 
         # TODO: normalize price names by removing punctuation and special characters and lowercasing it
+        i = 1
         for item, price in pairwise(menu):
-            if not item or not price:
+#            print item, "\t", price
+            if not item:
                 continue
             item = item.lower()
+            price = price.replace("$", "")
             num_price = 0.0
             try:
                 num_price = float(price)
             except ValueError:
-                print "Price is not a valid number", price
+                print "Invalid price: ", price
+                num_price = "NA"
             try:
-                truck_menu[item].append(num_price)
+                items[i].append(item)
             except KeyError:
-                truck_menu[item] = [num_price]
-        truck_menus[id] = truck_menu
-    return truck_menus, truck_names
+                items[i] = [item]
+            try:
+                prices[i].append(num_price)
+            except:
+                prices[i] = [num_price]
+            i += 1
 
-def quality_control(truck_menus, truck_names):
-    final_truck_names = {}
+        truck_items[url] = items
+        truck_prices[url] = prices
+
     final_truck_menus = {}
-    
-    # Majority vote on truck names
-    for id in truck_names:
-        name_counts = truck_names[id]
-        max_name, max_value = "", -1
-        for name in name_counts:
-            if name_counts[name] > max_value:
-                max_name = name
-                max_value = name_counts[name]
-        if max_name == "":
-            continue
-        final_truck_names[id] = max_name
-
-        # Majority vote on menus and the items
-        final_menu = {}
-        try:
-            menu = truck_menus[id]
+    price_agreements = defaultdict(int)
+    item_agreements = defaultdict(int)
+    item_counts = defaultdict(int)
+    truck_menus_file = open("../data/" + out_filename + "_menus.json", "w")
+    agreement_file = open("../data/" + out_filename + "_agreements.csv", "w")
+    # Majority vote on truck items and prices
+    for url in truck_items:
+        try: 
+            items = truck_items[url]
+            prices = truck_prices[url]
         except KeyError:
+            print "don't have items or prices for this url... problematic"
             continue
-        for item in menu:
-            price = -1.0
-            prices = menu[item]
-            if len(prices) < 2:
+        item_counts[url] = len(items.keys())
+        id = url_to_truck_id(url)
+        try: 
+            final_menu = final_truck_menus[id]
+        except KeyError:
+            final_menu = {}
+            # MAJORITY VOTE ON ITEMS AND PRICES
+        for item_id in items:
+            final_price = -1.0
+            item_names = items[item_id]
+            if not item_names or len(item_names) < 2:
                 continue
-            if len(prices) == 2:
-                if prices[0] == prices[1] or prices[0] > 0:
-                    price = prices[0]
-                elif prices[1] > 0:
-                    price = prices[1]
-                else:
-                    continue
-            elif len(prices) == 3:
-                for s_price in prices:
-                    for n_price in prices:
-                        if s_price == n_price:
-                            price = s_price
-                            break
-                if price == -1.0:
-                    if prices[0] > 0:
-                        price = prices[0]
-                    elif prices[1] > 0:
-                        price = prices[1]
-                    else:
-                        prices = prices[3]
-            if price == -1.0:
-                price = "IDK"
-            final_menu[item] = price
+            item_agreement, final_name = max([(item_names.count(name), name) for name in item_names])
+            item_agreement -= 1
+            
+            item_prices = prices[item_id]
+            if not prices:
+                continue
+            price_agreement, final_price = max([(item_prices.count(price), price) for price in item_prices]) 
+            price_agreement -= 1
+            if final_price == -1.0:
+                price = "NA"
+            price_agreements[url] += price_agreement
+            item_agreements[url] += item_agreement
+            final_menu[final_name] = final_price
+            
         final_truck_menus[id] = final_menu
-#    print "NAMES: ",  final_truck_names
-#    print "MENUS: ", final_truck_menus
-    return final_truck_names, final_truck_menus
+    # print item_agreements, "\n\n\n", item_counts
+    trucks = []
+    for truck_id in final_truck_menus:
+        truck_info = collections.OrderedDict([("id", truck_id), ("lat", TRUCK_INFO[truck_id][1]), ("long", TRUCK_INFO[truck_id][2]),  ("name", truck_id_to_name(truck_id)), ("menu", json.dumps(final_truck_menus[truck_id]))])
+        trucks.append(truck_info)
+    truck_menus_file.write(json.dumps(trucks))
+    truck_menus_file.close()
+
+    for url in item_agreements:
+        agreement_file.write(url + "\t" + str(item_agreements[url]/item_counts[url]) + "\t" + str(price_agreements[url]/item_counts[url]) + "\n")
+    agreement_file.close()
+
+    return final_truck_menus
                 
 def pairwise(l):
     a = iter(l)
     return izip(a, a)
             
-names, menus = combine_truck_info("../data/qc_input_sample.csv")
-qc_names, qc_menus = quality_control(names, menus)
+internal_menus = qc("../data/cf_internal.csv", "internal")
+
+external_menus = qc("../data/cf_external.csv", "external")
+
 

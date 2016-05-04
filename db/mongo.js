@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/cis197hw5', function (err) {
+mongoose.connect('mongodb://localhost/nets213', function (err) {
   if (err && err.message === 'connect ECONNREFUSED') {
     console.log('Error connecting to mongodb database: %s.\nIs "mongod" running?', err.message);
     process.exit(0);
@@ -17,13 +17,13 @@ var truckSchema = new mongoose.Schema({
   latitude: Number,
   longitude: Number,
   name: String,
-  menu: [{item: String, price: Number}],
+  menu: String,
 });
 
 var updates = new mongoose.Schema({
-  id: Number,
-  name_update: [{name: String, votes: Number}],
-  menu_update: [{item: String, price: Number, votes: Number}],
+  truck_id: Number,
+  name_update: {name: String, votes: Number},
+  menu_update: {item: String, price: String, votes: Number},
 });
 
 var Truck = mongoose.model('Truck', truckSchema);
