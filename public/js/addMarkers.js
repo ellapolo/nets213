@@ -10,31 +10,33 @@ function initMap() {
 	setMarkers(map);
 }
 
-var trucks = []; 
-
 //begin reading the global variable json containing information about the trucks and populate the trucks list
-for (var i = 0; i < json.length; i++) {	
-	var truck = [];
-	truck.push(json[i]['name']);
-	truck.push(parseFloat(json[i]['lat']));
-	truck.push(parseFloat(json[i]['long']));
-	var menu = JSON.parse(json[i]['menu']);
-	var food = '';
-	for (var items in menu) {
-		food += '<p> ' + items + ' - ' + '$' + menu[items] + '</p>';
+function parseTruckData(truck_json) {
+	var trucks = []
+	for (var i = 0; i < truck_json.length; i++) {	
+		var truck = [];
+		truck.push(truck_json[i]['name']);
+		truck.push(parseFloat(truck_json[i]['lat']));
+		truck.push(parseFloat(truck_json[i]['long']));
+		var menu = JSON.parse(truck_json[i]['menu']);
+		var food = '';
+		for (var items in menu) {
+			food += '<p> ' + items + ' - ' + '$' + menu[items] + '</p>';
+			}
+		truck.push(food);
+		trucks.push(truck);
 	}
-	truck.push(food);
-	trucks.push(truck);
+	return trucks;
 }
 
 function setMarkers(map) {
+	trucks = parseTruckData(trucks_json);
+	console.log(trucks)
 	var image = {
 		url: 'https://dl.dropboxusercontent.com/u/76571929/truckLogo.png'
 	};
 
-
 	var listeners = [];
-
 	for (var i = 0; i < trucks.length; i++) {
 		(function(index){
 			var truck = trucks[index];
