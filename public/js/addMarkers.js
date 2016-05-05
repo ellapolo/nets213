@@ -30,15 +30,22 @@ function parseTruckData(truck_json) {
 }
 
 function sendUpdate() {
-	alert("hello!");
-	console.log("I'm alive!")
+	update = $('#xentry')
+	var updateText = update.value;
+	update.value = "";
+	console.log(update.parent());
+	console.log(update.parent().attr("id"));
+	truck_id = update.parent().attr("id").toString().split('truck-update')[1];
+	console.log(truck_id);
+
+	// $.post("test.php", { id: "John", time: "2pm" } );
 }
 
 function setMarkers(map) {
 	trucks = parseTruckData(trucks_json);
 	console.log(trucks)
 	var image = {
-		url: 'https://dl.dropboxusercontent.com/u/76571929/truckLogo.png'
+		url: 'https://dl.dropboxusercontent.com/u/76571929/truckLogo%20(1).png'
 	};
 
 	var listeners = [];
@@ -56,8 +63,10 @@ function setMarkers(map) {
 				'<div id="siteNotice">'+
 				'</div>'+
 				'<h1 id="firstHeading" class="firstHeading">' + truck[0] + '</h1>' +
+				'<div id="truck-update' + (i + 1) + '">' +
 				'<input type="text" name="xentry" id="xentry" class="search form-control" value="" autocomplete="off" placeholder="Item - $(price)"/>' + 
 				'<button id="add_entry" onClick = "sendUpdate()" type="button">Add to Database</button>' +
+				'</div>' +
 				'<div id="result"></div>' +
 				'<div id="bodyContent">'+ truck[3]
 			});
