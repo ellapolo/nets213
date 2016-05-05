@@ -109,7 +109,7 @@ def qc(in_filename, out_filename):
             item_prices = prices[item_id]
             if not prices:
                 continue
-            price_agreement, final_price = max([(item_prices.count(price), price) for price in item_prices]) 
+            price_agreement, final_price = max([(item_prices.count(price), price) for price in item_prices if (price == "NA" or price < 20)]) 
             price_agreement -= 1
             if final_price == -1.0:
                 price = "NA"

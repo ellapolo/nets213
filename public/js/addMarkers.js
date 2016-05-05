@@ -29,6 +29,11 @@ function parseTruckData(truck_json) {
 	return trucks;
 }
 
+function sendUpdate() {
+	alert("hello!");
+	console.log("I'm alive!")
+}
+
 function setMarkers(map) {
 	trucks = parseTruckData(trucks_json);
 	console.log(trucks)
@@ -52,9 +57,8 @@ function setMarkers(map) {
 				'</div>'+
 				'<h1 id="firstHeading" class="firstHeading">' + truck[0] + '</h1>' +
 				'<input type="text" name="xentry" id="xentry" class="search form-control" value="" autocomplete="off" placeholder="Item - $(price)"/>' + 
-				'<button id="add_entry" type="button">Add to Database</button>' +
+				'<button id="add_entry" onClick = "sendUpdate()" type="button">Add to Database</button>' +
 				'<div id="result"></div>' +
-				'<script> document.getElementById("add_entry").onclick = function() {alert("dude");}; </script>' +
 				'<div id="bodyContent">'+ truck[3]
 			});
 			marker.addListener('click', function() {
