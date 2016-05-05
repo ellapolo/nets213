@@ -78,9 +78,11 @@ def qc(in_filename, out_filename):
         truck_prices[url] = prices
 
     final_truck_menus = {}
+    url_menus = {}
     price_agreements = defaultdict(int)
     item_agreements = defaultdict(int)
     item_counts = defaultdict(int)
+    second_pass_data_file = open("../data/" + out_filename + "_second_pass.csv", "w")
     truck_menus_file = open("../data/" + out_filename + "_menus.json", "w")
     agreement_file = open("../data/" + out_filename + "_agreements.csv", "w")
     # Majority vote on truck items and prices
@@ -93,6 +95,7 @@ def qc(in_filename, out_filename):
             continue
         item_counts[url] = len(items.keys())
         id = url_to_truck_id(url)
+        url_menu = {}
         try: 
             final_menu = final_truck_menus[id]
         except KeyError:
@@ -116,19 +119,28 @@ def qc(in_filename, out_filename):
             price_agreements[url] += price_agreement
             item_agreements[url] += item_agreement
             final_menu[final_name] = final_price
+            url_menu[final_name] = final_price
             
+        url_menus[url] = url_menu    
         final_truck_menus[id] = final_menu
-    # print item_agreements, "\n\n\n", item_counts
+
     trucks = []
+    ## PRINT MENUS TO FILE
     for truck_id in final_truck_menus:
         truck_info = collections.OrderedDict([("id", truck_id), ("lat", TRUCK_INFO[truck_id][1]), ("long", TRUCK_INFO[truck_id][2]),  ("name", truck_id_to_name(truck_id)), ("menu", json.dumps(final_truck_menus[truck_id]))])
         trucks.append(truck_info)
     truck_menus_file.write(json.dumps(trucks))
     truck_menus_file.close()
 
+    ## PRINT AGREEMENT DATA TO FILE
     for url in item_agreements:
         agreement_file.write(url + "\t" + str(item_agreements[url]/item_counts[url]) + "\t" + str(price_agreements[url]/item_counts[url]) + "\n")
     agreement_file.close()
+
+    ## PRINT IMAGES AND MENUS FOR SECOND PASS HIT
+    for url in url_menus:
+        second_pass_data_file.write(url + "\t" + TRUCK_INFO[url_to_truck_id(url)][0] + "\t" + str(url_menus[url]) + "\n")
+    second_pass_data_file.close()
 
     return final_truck_menus
                 

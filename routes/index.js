@@ -6,12 +6,6 @@ exports.init = function(callback) {
 };
 
 exports.index = function(req, res) {
-	saveTrucks(function (e) {
-		if (e) {
-			console.log(e);
-		}
-
-	});
 	res.render('landing.ejs');
 
 }
@@ -24,7 +18,7 @@ exports.update = function(req, res) {
 		console.log("invalid update sent.");
 		res.send("something");
 	}
-	
+
 	var item = data[0];
 	var price = data[1];
 	update = {_id: id, name_update: null, item_update: {}}
