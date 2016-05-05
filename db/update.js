@@ -8,7 +8,7 @@ module.exports = {
       } else {
         var seen = false;
         for (var up in update.menu_update) {
-          if (new_update.item == up.item and new_update.price == up.price) {
+          if (new_update.item == up.item && new_update.price == up.price) {
             up.votes = up.votes + 1;
             seen = true;
           }

@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/nets213', function (err) {
   } else if (err) {
     throw err;
   } else {
-    console.log('DB successfully connected. Adding seed data...');
+    console.log('DB successfully connected.');
   }
 });
 
@@ -21,9 +21,9 @@ var truckSchema = new mongoose.Schema({
 });
 
 var updates = new mongoose.Schema({
-  truck_id: Number,
-  name_update: {name: String, votes: Number},
-  menu_update: {item: String, price: String, votes: Number},
+  _id: Number,
+  name_update: [{name: String, votes: Number}],
+  menu_update: [{item: String, price: String, votes: Number}],
 });
 
 var Truck = mongoose.model('Truck', truckSchema);

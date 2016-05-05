@@ -30,15 +30,16 @@ function parseTruckData(truck_json) {
 }
 
 function sendUpdate() {
-	update = $('#xentry')
+	update = document.getElementById('xentry');
 	var updateText = update.value;
 	update.value = "";
-	console.log(update.parent());
-	console.log(update.parent().attr("id"));
-	truck_id = update.parent().attr("id").toString().split('truck-update')[1];
+	truck_id = update.parentNode.id.toString().split('truck-update')[1];
 	console.log(truck_id);
-
-	// $.post("test.php", { id: "John", time: "2pm" } );
+	$.post("/update_menu", {id: truck_id, data: updateText}, function(error) {
+		if (error) {
+			console.log(error)
+		}
+	});
 }
 
 function setMarkers(map) {
